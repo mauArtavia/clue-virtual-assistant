@@ -30,7 +30,8 @@ public class Partida {
     private String[] weaponsList;
 
     /**
-     * Metodo encargado de la interacion directa con el usuario y manejo de los distintos metodos del programa.
+     * Metodo encargado de la interacion directa con el usuario y manejo de los distintos metodos 
+     * del programa.
      */
     public void game() {
         // =-=-= Inicio del programa =-=-= \\
@@ -76,12 +77,15 @@ public class Partida {
         
         while (!canPlay) {
             System.out.print("Por favor, ingrese el nombre de cada uno de los jugadores, separados por un guion (-): ");
+
             enterPlayers = scan.nextLine();
             this.playersList = enterPlayers.split("-");
+            
             if (this.playersList.length >= 3 && this.playersList.length <= 6) {
                 canPlay = true;
             } else {
-                System.out.println("=== ALTO!!! El juego esta pensado para jugarse entre 2 a 6 jugadores, por favor, digite una cantidad de nombres valida ===");
+                System.out.println("=== ALTO!!! El juego esta pensado para jugarse entre 2 a 6 jugadores, por favor, " 
+                    + "digite una cantidad de nombres valida ===");
             }
         }
     }
@@ -95,7 +99,9 @@ public class Partida {
         
         while (!found) {
             System.out.print("Ingrese su nombre: ");
+            
             enterUser = scan.nextLine();
+            
             for (int i = 0; i < this.playersList.length; i++) {
                 if (this.playersList[i].equals(enterUser)) {
                     found = true;
@@ -103,8 +109,10 @@ public class Partida {
                     break;
                 }
             }
+
             if (!found) {
-                System.out.println("=== Usted ha ingresado un nombre no valido. Por favor, digite su nombre tal y como lo ingreso en la lista de jugadores ===");
+                System.out.println("=== Usted ha ingresado un nombre no valido. Por favor, digite su nombre tal y " 
+                    + "como lo ingreso en la lista de jugadores ===");
             }
         }
     }
@@ -119,16 +127,19 @@ public class Partida {
         
         // =-=-= Pregunta por las cartas de armas para ser agregadas a la lista de Armas =-=-= \\
         System.out.print("Ingrese las cartas de armas, separadas por guion (-): ");
+        
         enterWeapons = scan.nextLine();
         this.weaponsList = enterWeapons.split("-");
         
         // =-=-= Pregunta por las cartas de sospechosos para ser agregadas a la lista de Sospechosos =-=-= \\
         System.out.print("Ingrese las cartas de sospechosos, separadas por guion (-): ");
+        
         enterSuspects = scan.nextLine();
         this.suspectsList = enterSuspects.split("-");
         
         // =-=-= Pregunta por las cartas de habitaciones para ser agregadas a la lista de Habitaciones =-=-= \\
         System.out.print("Ingrese las cartas de habitaciones, separadas por guion(-): ");
+        
         enterRooms = scan.nextLine();
         this.roomsList = enterRooms.split("-");
     }
@@ -165,16 +176,22 @@ public class Partida {
         String enterPublicCards;
         String[] addPublicCards;
         
-        this.publicCardsAmount = (((this.weaponsList.length)+(this.suspectsList.length)+(this.roomsList.length)) % (playersList.length));
+        this.publicCardsAmount = (((this.weaponsList.length)+(this.suspectsList.length)+(this.roomsList.length)) 
+            % (playersList.length));
+        
         System.out.println("=== Tenemos un total de " + this.publicCardsAmount + " cartas publicas ===");
+        
         if (this.publicCardsAmount != 0) {
             this.publicCards = new String[this.publicCardsAmount];
+            
             for (int i = 0; i < this.publicCardsAmount; i++) {
                 System.out.print("Por favor, digite la carta publica #" + (i+1) + " : ");
+                
                 enterPublicCards = scan.nextLine();
                 addPublicCards = enterPublicCards.split("-");
                 this.publicCards[i] = addPublicCards[0];
             }
+
             this.addPublicCards();
         }
     }
@@ -187,20 +204,25 @@ public class Partida {
             for (int weaponCards = 0; weaponCards < this.weaponsList.length; weaponCards++) {
                 if (this.publicCards[publicCards].equals(this.weaponsList[weaponCards])) {
                     int index = weaponCards;
+                    
                     this.weapons.addPublicCards(index);
                     break;
                 }
             }
+
             for (int suspectsCards = 0; suspectsCards < this.suspectsList.length; suspectsCards++) {
                 if (this.publicCards[publicCards].equals(this.suspectsList[suspectsCards])) {
                     int index = suspectsCards;
+                    
                     this.suspects.addPublicCards(index);
                     break;
                 }
             }
+
             for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
                 if (this.publicCards[publicCards].equals(this.roomsList[roomCards])) {
                     int index = roomCards;
+                    
                     this.rooms.addPublicCards(index);
                     break;
                 }
@@ -212,34 +234,46 @@ public class Partida {
      * Metodo que se encarga de construir la lista de cartas del jugador.
      */
     public void userCards() {
-        this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length) + (this.roomsList.length)) - this.publicCardsAmount)-3)/this.playersList.length;
+        this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length) 
+            + (this.roomsList.length)) - this.publicCardsAmount)-3)/this.playersList.length;
+        
         do {
             System.out.print("Ingrese sus cartas (" + (this.correctAmountCards) + "), separadas por un guion (-): ");
+            
             String enterUserCards = scan.nextLine();
+
             this.playerCardList = enterUserCards.split("-");
+
             if (this.playerCardList.length != this.correctAmountCards) {
-                System.out.print("=== Me parece que has ingresado una cantidad invalida de cartas, deberias de tener " + (this.correctAmountCards) + " cartas en total ===");
+                System.out.print("=== Me parece que has ingresado una cantidad invalida de cartas, deberias de tener " 
+                    + (this.correctAmountCards) + " cartas en total ===");
             }
+
         } while (this.playerCardList.length != correctAmountCards);
         
         for (int userCards = 0; userCards < this.playerCardList.length; userCards++) {
             for (int weaponsCards = 0; weaponsCards < this.weaponsList.length; weaponsCards++) {
                 if (this.playerCardList[userCards].equals(this.weaponsList[weaponsCards])) {
                     int index = weaponsCards+1;
+
                     this.weapons.addUserCards(index, this.userID);
                     break;
                 }
             }
+
             for (int suspectsCards = 0; suspectsCards < this.suspectsList.length; suspectsCards++) {
                 if (this.playerCardList[userCards].equals(this.suspectsList[suspectsCards])) {
                     int index = suspectsCards+1;
+
                     this.suspects.addUserCards(index, this.userID);
                     break;
                 }
             }
+
             for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
                 if (this.playerCardList[userCards].equals(this.roomsList[roomCards])) {
                     int index = roomCards+1;
+
                     this.rooms.addUserCards(index, this.userID);
                     break;
                 }
@@ -255,10 +289,15 @@ public class Partida {
         this.analizeEnvelope();
         
         System.out.println("=-=-=\nARMAS\n=-=-=");
+
         this.weapons.reviewMatriz();
+
         System.out.println("=-=-=-=-=-=\nSOSPECHOSOS\n=-=-=-=-=-=");
+
         this.suspects.reviewMatriz();
+
         System.out.println("=-=-=--=-=-=\nHABITACIONES\n=-=-=--=-=-=");
+
         this.rooms.reviewMatriz();
     }
     
@@ -309,6 +348,7 @@ public class Partida {
                         + this.weapons.knownEnvelope() + "\nSospechoso: " 
                         + this.suspects.knownEnvelope() + "\nHabitacion: " 
                         + this.rooms.knownEnvelope() + "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+
                 System.out.print("Que esta sucediendo?"
                         + "\n[1] Tengo Informacion."
                         + "\n[2] Es mi turno."
@@ -371,20 +411,27 @@ public class Partida {
                             
                             correctQuestion = true;
                         } else {
-                            System.out.println("=== Usted ha seleccionado una opcion de pregunta invalida, por favor, digite una opcion valida ===");
+                            System.out.println("=== Usted ha seleccionado una opcion de pregunta invalida, por favor, " 
+                                + "digite una opcion valida ===");
                             correctQuestion = false;
                         }
                     }
+
                     this.printMatriz();
                 } else if (optionPlay == 3) {
-                    System.out.println("=== Espero el programa le haya sido de suma ayuda. Gracias por usar el Asistente Virtual CLUE ===");
+                    System.out.println("=== Espero el programa le haya sido de suma ayuda. Gracias por usar el " 
+                        + "Asistente Virtual CLUE ===");
+
                     stayPlaying = false;
                 } else {
-                    System.out.println("=== CUIDADO!!! Usted ha digitado una opcion de menu no existente. Por favor, digite una opcion existente ===");
+                    System.out.println("=== CUIDADO!!! Usted ha digitado una opcion de menu no existente. Por favor, " 
+                        + "digite una opcion existente ===");
+
                     stayPlaying = true;
                 }
             } catch (NumberFormatException a) {
-                System.out.println("=== CUIDADO!!! Usted ha digitado una opcion de menu no existente. Por favor, digite una opcion existente ===");
+                System.out.println("=== CUIDADO!!! Usted ha digitado una opcion de menu no existente. Por favor, " 
+                    + "digite una opcion existente ===");
             }
         }
     }
@@ -414,10 +461,11 @@ public class Partida {
                 System.out.print("Digite la combinacion de 3 cartas por la cual han preguntado, separadas por guion (-): ");
             
                 questionAnswer = scan.nextLine();
-            
                 this.askedCards = questionAnswer.split("-");
+
                 if (this.askedCards.length != 3) {
                     System.out.println("=== CUIDADO!! Usted no ha digitado una combinacion de 3 cartas ===");
+
                     correctAmountCards = false;
                 } else {
                     correctAmountCards = true;
@@ -428,11 +476,13 @@ public class Partida {
             if (canContinue) {
                 while (!haveAnswer) {
                     found = false;
+
                     if (counter == this.playersList.length-1) {
                         found = true;
                         haveAnswer = true;
                         continueAsking = false;
                     }
+
                     while (!found) {
                         System.out.print("Por favor, ingrese quien responde: ");
 
@@ -445,6 +495,7 @@ public class Partida {
                                 break;
                             }
                         }
+
                         if (!found) {
                             System.out.println("=== Usted ha ingresado un nombre no valido ===");
                         }
@@ -455,20 +506,21 @@ public class Partida {
                         haveInfo = scan.nextLine();
 
                         if (haveInfo.equalsIgnoreCase("SI")) {
-
                             haveAnswer = true;
-
                             counter = this.playersList.length+1;
                         } else if (haveInfo.equalsIgnoreCase("NO")) {
                             askingStatus = false;
+
                             for (int i = 0; i < this.askedCards.length; i++) {
                                 this.addAskedCards(this.askedCards[i], askingStatus, askedPlayerID);
                             }
+
                             haveAnswer = false;
                             counter++;
                             found = false;
                         } else {
                             System.out.println("=== ADVERTENCIA!!! Opcion Invalida, vuelva a intentarlo ===");
+
                             haveAnswer = false;
                         }
                         this.weapons.convertDoubleString();
@@ -477,7 +529,8 @@ public class Partida {
                     }
                 }
             } else {
-                System.out.println("=== OJO!!! Usted ha digitado cartas con las cuales usted no esta jugando, tenga cuidado y digite cartas existentes ===");
+                System.out.println("=== OJO!!! Usted ha digitado cartas con las cuales usted no esta jugando, tenga " 
+                    + "cuidado y digite cartas existentes ===");
             }
         }
     }
@@ -505,25 +558,29 @@ public class Partida {
                 System.out.print("Digite la combinacion de 3 cartas por la cual ha preguntado, separadas por guion (-): ");
             
                 questionAnswer = scan.nextLine();
-            
                 this.askedCards = questionAnswer.split("-");
+
                 if (this.askedCards.length != 3) {
                     System.out.println("=== CUIDADO!! Usted no ha digitado una combinacion de 3 cartas ===");
+
                     correctAmountCards = false;
                 } else {
                     correctAmountCards = true;
                 }
             }
+
             canContinue = this.validateCards();
             
             if (canContinue) {
                 while (!haveAnswer) {
                     found = false;
+
                     if (counter == this.playersList.length-1) {
                         found = true;
                         haveAnswer = true;
                         continueAsking = false;
                     }
+
                     while (!found) {
                         System.out.print("Por favor, ingrese quien le responde: ");
 
@@ -536,6 +593,7 @@ public class Partida {
                                 break;
                             }
                         }
+
                         if (!found) {
                             System.out.println("=== Usted ha ingresado un nombre no valido ===");
                         }
@@ -548,19 +606,21 @@ public class Partida {
                         
                         if (haveInfo.equalsIgnoreCase("SI")) {
                             askingStatus = true;
+
                             System.out.print("Que carta tiene? ");
 
                             askedCard = scan.nextLine();
 
                             this.addAskedCards(askedCard, askingStatus, askedPlayerID);
                             haveAnswer = true;
-
                             counter = this.playersList.length+1;
                         } else if (haveInfo.equalsIgnoreCase("NO")) {
                             askingStatus = false;
+
                             for (int i = 0; i < this.askedCards.length; i++) {
                                 this.addAskedCards(this.askedCards[i], askingStatus, askedPlayerID);
                             }
+
                             haveAnswer = false;
                             counter++;
                             found = false;
@@ -574,7 +634,8 @@ public class Partida {
                     }
                 }
             } else {
-                System.out.println("=== OJO!!! Usted ha digitado cartas con las cuales usted no esta jugando, tenga cuidado y digite cartas existentes ===");
+                System.out.println("=== OJO!!! Usted ha digitado cartas con las cuales usted no esta jugando, tenga " 
+                    + "cuidado y digite cartas existentes ===");
             }
         }
     }
@@ -616,6 +677,7 @@ public class Partida {
         for (int weaponCards = 0; weaponCards < this.weaponsList.length; weaponCards++) {
             if (askedCard.equals(this.weaponsList[weaponCards])) {
                 int askedCardID = weaponCards+1;
+
                 this.weapons.addAskedCards(askedCardID, askedPlayerID, askingStatus);
                 break;
             }
@@ -623,6 +685,7 @@ public class Partida {
         for (int suspectsCards = 0; suspectsCards < this.suspectsList.length; suspectsCards++) {
             if (askedCard.equals(this.suspectsList[suspectsCards])) {
                 int askedCardID = suspectsCards+1;
+
                 this.suspects.addAskedCards(askedCardID, askedPlayerID, askingStatus);
                 break;
             }
@@ -630,6 +693,7 @@ public class Partida {
         for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
             if (askedCard.equals(this.roomsList[roomCards])) {
                 int askedCardID = roomCards+1;
+
                 this.rooms.addAskedCards(askedCardID, askedPlayerID, askingStatus);
                 break;
             }
