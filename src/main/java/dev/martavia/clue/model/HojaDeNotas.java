@@ -41,14 +41,14 @@ public class HojaDeNotas {
             for (int col = 0; col < this.columns; col++) {
                 if (row == 0 && col == 0) {
                     this.possibilities[row][col] = "";
-                } else if (row != 0 && col == 0) {
-                    this.possibilities[row][col] = cardList[row - 1];
-                } else if (col == (columns - 1) && row == 0) {
+                } else if (row == 0 && col == this.columns - 1) {
                     this.possibilities[row][col] = "Sobre";
-                } else if (col != 0 && row == 0) {
+                } else if (row == 0) {
                     this.possibilities[row][col] = playersList[col - 1];
+                } else if (col == 0) {
+                    this.possibilities[row][col] = cardList[row - 1];
                 } else {
-                    this.possibilities[row][col] = ("3.0");
+                    this.possibilities[row][col] = "3.0";
                 }
             }
         }
@@ -65,13 +65,7 @@ public class HojaDeNotas {
 
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.columns; col++) {
-                if (row == 0 && col == 0) {
-                    this.possibilitiesStats[row][col] = 2.0;
-                } else if (row != 0 && col == 0) {
-                    this.possibilitiesStats[row][col] = 2.0;
-                } else if (col == (columns - 1) && row == 0) {
-                    this.possibilitiesStats[row][col] = 2.0;
-                } else if (col != 0 && row == 0) {
+                if (row == 0 || col == 0) {
                     this.possibilitiesStats[row][col] = 2.0;
                 } else {
                     this.possibilitiesStats[row][col] = Double.parseDouble(this.possibilities[row][col]);
