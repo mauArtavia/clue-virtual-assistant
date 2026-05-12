@@ -59,7 +59,7 @@ public class HojaDeNotas {
      * (doubles).
      */
     public void createDoubleMatriz() {
-        int contador, divisor;
+        int contador;
 
         this.possibilitiesStats = new double[this.rows + 1][this.columns + 2];
 
@@ -82,11 +82,9 @@ public class HojaDeNotas {
                 }
             }
 
-            divisor = 100 / contador;
-
             for (int col = 1; col < this.columns; col++) {
                 if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
-                    possibilitiesStats[fila][col] = divisor / 100.;
+                    possibilitiesStats[fila][col] = 1.0 / contador;
                 }
             }
         }
@@ -398,7 +396,6 @@ public class HojaDeNotas {
      */
     public void updatepossibilities() {
         int counter;
-        double divisor = 100;
 
         for (int fila = 1; fila < this.rows; fila++) {
             counter = 0;
@@ -410,12 +407,10 @@ public class HojaDeNotas {
             }
 
             if (counter > 0) {
-                divisor = 100 / counter;
-            }
-
-            for (int col = 1; col < this.columns; col++) {
-                if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
-                    this.possibilitiesStats[fila][col] = divisor / 100;
+                for (int col = 1; col < this.columns; col++) {
+                    if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
+                        this.possibilitiesStats[fila][col] = 1.0 / counter;
+                    }
                 }
             }
         }
