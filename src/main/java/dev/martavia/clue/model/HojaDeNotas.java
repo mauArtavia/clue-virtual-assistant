@@ -7,14 +7,14 @@ package dev.martavia.clue;
  */
 public class HojaDeNotas {
     // =-=-= Declaracion de variables tipo double[] en estado privado =-=-= \\
-    private double[][] posibilitiesStats;
+    private double[][] possibilitiesStats;
 
     // =-=-= Declaracion de variables tipo int en estado privado =-=-= \\
     private int columns;
     private int rows;
 
     // =-=-= Declaracion de variables tipo String[] en estado privado =-=-= \\
-    private String[][] posibilities;
+    private String[][] possibilities;
 
     // =-=-= Metodo Constructor =-=-= \\
     /**
@@ -26,7 +26,7 @@ public class HojaDeNotas {
     public HojaDeNotas(int columns, int rows) {
         this.columns = columns + 2;
         this.rows = rows + 1;
-        this.posibilities = new String[rows + 1][columns + 2];
+        this.possibilities = new String[rows + 1][columns + 2];
     }
 
     // =-=-= Constructores de Matriz =-=-= \\
@@ -40,15 +40,15 @@ public class HojaDeNotas {
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.columns; col++) {
                 if (row == 0 && col == 0) {
-                    this.posibilities[row][col] = "";
+                    this.possibilities[row][col] = "";
                 } else if (row != 0 && col == 0) {
-                    this.posibilities[row][col] = cardList[row - 1];
+                    this.possibilities[row][col] = cardList[row - 1];
                 } else if (col == (columns - 1) && row == 0) {
-                    this.posibilities[row][col] = "Sobre";
+                    this.possibilities[row][col] = "Sobre";
                 } else if (col != 0 && row == 0) {
-                    this.posibilities[row][col] = playersList[col - 1];
+                    this.possibilities[row][col] = playersList[col - 1];
                 } else {
-                    this.posibilities[row][col] = ("3.0");
+                    this.possibilities[row][col] = ("3.0");
                 }
             }
         }
@@ -61,20 +61,20 @@ public class HojaDeNotas {
     public void createDoubleMatriz() {
         int contador, divisor;
 
-        this.posibilitiesStats = new double[this.rows + 1][this.columns + 2];
+        this.possibilitiesStats = new double[this.rows + 1][this.columns + 2];
 
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.columns; col++) {
                 if (row == 0 && col == 0) {
-                    this.posibilitiesStats[row][col] = 2.0;
+                    this.possibilitiesStats[row][col] = 2.0;
                 } else if (row != 0 && col == 0) {
-                    this.posibilitiesStats[row][col] = 2.0;
+                    this.possibilitiesStats[row][col] = 2.0;
                 } else if (col == (columns - 1) && row == 0) {
-                    this.posibilitiesStats[row][col] = 2.0;
+                    this.possibilitiesStats[row][col] = 2.0;
                 } else if (col != 0 && row == 0) {
-                    this.posibilitiesStats[row][col] = 2.0;
+                    this.possibilitiesStats[row][col] = 2.0;
                 } else {
-                    this.posibilitiesStats[row][col] = Double.parseDouble(this.posibilities[row][col]);
+                    this.possibilitiesStats[row][col] = Double.parseDouble(this.possibilities[row][col]);
                 }
             }
         }
@@ -83,7 +83,7 @@ public class HojaDeNotas {
             contador = 0;
 
             for (int col = 1; col < this.columns; col++) {
-                if (this.posibilitiesStats[fila][col] != 0.0 && this.posibilitiesStats[fila][col] != 1.0) {
+                if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
                     contador++;
                 }
             }
@@ -91,8 +91,8 @@ public class HojaDeNotas {
             divisor = 100 / contador;
 
             for (int col = 1; col < this.columns; col++) {
-                if (this.posibilitiesStats[fila][col] != 0.0 && this.posibilitiesStats[fila][col] != 1.0) {
-                    posibilitiesStats[fila][col] = divisor / 100.;
+                if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
+                    possibilitiesStats[fila][col] = divisor / 100.;
                 }
             }
         }
@@ -104,7 +104,7 @@ public class HojaDeNotas {
     public void convertDoubleString() {
         for (int row = 1; row < this.rows; row++) {
             for (int col = 1; col < this.columns; col++) {
-                this.posibilities[row][col] = Double.toString(this.posibilitiesStats[row][col]);
+                this.possibilities[row][col] = Double.toString(this.possibilitiesStats[row][col]);
             }
         }
     }
@@ -115,7 +115,7 @@ public class HojaDeNotas {
     public void reviewMatriz() {
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.columns; col++) {
-                System.out.print(this.posibilities[row][col] + "\t");
+                System.out.print(this.possibilities[row][col] + "\t");
             }
 
             System.out.print("\n");
@@ -135,7 +135,7 @@ public class HojaDeNotas {
         do {
             row = (int) (Math.random() * this.rows);
         } while (row == 0);
-        answer = this.posibilities[row][0];
+        answer = this.possibilities[row][0];
 
         return answer;
     }
@@ -159,12 +159,12 @@ public class HojaDeNotas {
                 col = 0;
             }
 
-            if (this.posibilities[row][col].equals("0.0")) {
+            if (this.possibilities[row][col].equals("0.0")) {
                 row = 0;
                 col = 0;
             }
         } while (row == 0 && col == 0);
-        answer = this.posibilities[row][0];
+        answer = this.possibilities[row][0];
 
         return answer;
     }
@@ -182,9 +182,9 @@ public class HojaDeNotas {
         col = (this.columns - 1);
 
         for (int r = 1; r < this.rows; r++) {
-            if (this.posibilities[r][col].equals("1.0")) {
+            if (this.possibilities[r][col].equals("1.0")) {
                 row = r;
-                answer = this.posibilities[row][0];
+                answer = this.possibilities[row][0];
                 value1Found = true;
 
                 break;
@@ -195,12 +195,12 @@ public class HojaDeNotas {
             do {
                 row = (int) (Math.random() * this.rows);
 
-                if (this.posibilities[row][col].equals("0.0")) {
+                if (this.possibilities[row][col].equals("0.0")) {
                     row = 0;
                     col = 0;
                 }
             } while (row == 0 && col == 0);
-            answer = this.posibilities[row][0];
+            answer = this.possibilities[row][0];
         }
 
         return answer;
@@ -218,13 +218,13 @@ public class HojaDeNotas {
         String answer = "";
 
         for (int r = 1; r < this.rows; r++) {
-            if (this.posibilitiesStats[r][col] > initialValue) {
-                initialValue = this.posibilitiesStats[r][col];
+            if (this.possibilitiesStats[r][col] > initialValue) {
+                initialValue = this.possibilitiesStats[r][col];
                 row = r;
             }
         }
 
-        answer = this.posibilities[row][0];
+        answer = this.possibilities[row][0];
 
         return answer;
     }
@@ -241,7 +241,7 @@ public class HojaDeNotas {
         int counter = 0;
 
         for (int row = 1; row < this.rows; row++) {
-            if (this.posibilitiesStats[row][col] == 1.0) {
+            if (this.possibilitiesStats[row][col] == 1.0) {
                 counter++;
             }
         }
@@ -260,7 +260,7 @@ public class HojaDeNotas {
         String answer = "";
 
         for (int row = 1; row < this.rows; row++) {
-            if (this.posibilities[row][this.columns - 1].equals("1.0")) {
+            if (this.possibilities[row][this.columns - 1].equals("1.0")) {
                 objectPos = row;
                 canReturn = true;
 
@@ -269,7 +269,7 @@ public class HojaDeNotas {
         }
 
         if (canReturn) {
-            answer = this.posibilities[objectPos][0];
+            answer = this.possibilities[objectPos][0];
         } else {
             answer = "{DESCONOCIDO}";
         }
@@ -288,15 +288,15 @@ public class HojaDeNotas {
         if (askingStatus) {
             for (int col = 1; col < this.columns; col++) {
                 if (col == askedPlayerID + 1) {
-                    this.posibilitiesStats[askedCardID][col] = 1.0;
+                    this.possibilitiesStats[askedCardID][col] = 1.0;
                 } else {
-                    if (this.posibilitiesStats[askedCardID][col] != 1.0) {
-                        this.posibilitiesStats[askedCardID][col] = 0.0;
+                    if (this.possibilitiesStats[askedCardID][col] != 1.0) {
+                        this.possibilitiesStats[askedCardID][col] = 0.0;
                     }
                 }
             }
         } else {
-            this.posibilitiesStats[askedCardID][askedPlayerID + 1] = 0.0;
+            this.possibilitiesStats[askedCardID][askedPlayerID + 1] = 0.0;
         }
 
         this.convertDoubleString();
@@ -309,7 +309,7 @@ public class HojaDeNotas {
      */
     public void addPublicCards(int index) {
         for (int col = 1; col < this.columns; col++) {
-            this.posibilitiesStats[index + 1][col] = 0.0;
+            this.possibilitiesStats[index + 1][col] = 0.0;
             this.convertDoubleString();
         }
     }
@@ -324,13 +324,13 @@ public class HojaDeNotas {
         for (int row = 1; row < this.rows; row++) {
             for (int col = 1; col < this.columns; col++) {
                 if (col == userID + 1 && row == index) {
-                    this.posibilitiesStats[row][col] = 1.0;
+                    this.possibilitiesStats[row][col] = 1.0;
                 } else if (col == userID + 1 && row != index) {
-                    if (this.posibilitiesStats[row][col] != 1.0) {
-                        this.posibilitiesStats[row][col] = 0.0;
+                    if (this.possibilitiesStats[row][col] != 1.0) {
+                        this.possibilitiesStats[row][col] = 0.0;
                     }
                 } else if (row == index && col != userID + 1) {
-                    this.posibilitiesStats[row][col] = 0.0;
+                    this.possibilitiesStats[row][col] = 0.0;
                 }
             }
         }
@@ -347,17 +347,17 @@ public class HojaDeNotas {
         int counter = 0;
 
         for (int row = 1; row < this.rows; row++) {
-            if (this.posibilitiesStats[row][col] == 0.0) {
+            if (this.possibilitiesStats[row][col] == 0.0) {
                 counter++;
             }
         }
 
         if (counter == this.rows - 2) {
             for (int row = 1; row < this.rows; row++) {
-                if (this.posibilitiesStats[row][col] != 0.0) {
-                    this.posibilitiesStats[row][col] = 1.0;
+                if (this.possibilitiesStats[row][col] != 0.0) {
+                    this.possibilitiesStats[row][col] = 1.0;
                     for (int column = 1; column < this.columns - 1; column++) {
-                        this.posibilitiesStats[row][column] = 0.0;
+                        this.possibilitiesStats[row][column] = 0.0;
                     }
                 }
             }
@@ -375,8 +375,8 @@ public class HojaDeNotas {
         int col = userID;
 
         for (int row = 1; row < this.rows; row++) {
-            if (this.posibilitiesStats[row][col] != 1.0) {
-                this.posibilitiesStats[row][col] = 0.0;
+            if (this.possibilitiesStats[row][col] != 1.0) {
+                this.possibilitiesStats[row][col] = 0.0;
             }
         }
     }
@@ -390,19 +390,19 @@ public class HojaDeNotas {
         int col = playerID + 1;
 
         for (int row = 1; row < this.rows; row++) {
-            if (this.posibilitiesStats[row][col] != 1.0) {
-                this.posibilitiesStats[row][col] = 0.0;
+            if (this.possibilitiesStats[row][col] != 1.0) {
+                this.possibilitiesStats[row][col] = 0.0;
             }
         }
 
-        this.updatePosibilities();
+        this.updatepossibilities();
         this.convertDoubleString();
     }
 
     /**
      * Actualiza las posibilidades de la matriz.
      */
-    public void updatePosibilities() {
+    public void updatepossibilities() {
         int counter;
         double divisor = 100;
 
@@ -410,7 +410,7 @@ public class HojaDeNotas {
             counter = 0;
 
             for (int col = 1; col < this.columns; col++) {
-                if (this.posibilitiesStats[fila][col] != 0.0 && this.posibilitiesStats[fila][col] != 1.0) {
+                if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
                     counter++;
                 }
             }
@@ -420,8 +420,8 @@ public class HojaDeNotas {
             }
 
             for (int col = 1; col < this.columns; col++) {
-                if (this.posibilitiesStats[fila][col] != 0.0 && this.posibilitiesStats[fila][col] != 1.0) {
-                    this.posibilitiesStats[fila][col] = divisor / 100;
+                if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
+                    this.possibilitiesStats[fila][col] = divisor / 100;
                 }
             }
         }
