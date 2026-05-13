@@ -310,17 +310,17 @@ public class HojaDeNotas {
      * @param userID Ubicacion en matriz del usuario.
      */
     public void addUserCards(int index, int userID) {
+        this.possibilitiesStats[index][userID + 1] = 1.0;
+
+        for (int col = 1; col < this.columns; col++) {
+            if (col != userID + 1) {
+                this.possibilitiesStats[index][col] = 0.0;
+            }
+        }
+
         for (int row = 1; row < this.rows; row++) {
-            for (int col = 1; col < this.columns; col++) {
-                if (col == userID + 1 && row == index) {
-                    this.possibilitiesStats[row][col] = 1.0;
-                } else if (col == userID + 1 && row != index) {
-                    if (this.possibilitiesStats[row][col] != 1.0) {
-                        this.possibilitiesStats[row][col] = 0.0;
-                    }
-                } else if (row == index && col != userID + 1) {
-                    this.possibilitiesStats[row][col] = 0.0;
-                }
+            if (row != index && this.possibilitiesStats[row][userID + 1] != 1.0) {
+                this.possibilitiesStats[row][userID + 1] = 0.0;
             }
         }
 
