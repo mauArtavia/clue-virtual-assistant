@@ -209,26 +209,20 @@ public class Partida {
      */
     private void addPublicCards() {
         for (int publicCards = 0; publicCards < this.publicCards.length; publicCards++) {
-            for (int weaponCards = 0; weaponCards < this.weaponsList.length; weaponCards++) {
-                if (this.publicCards[publicCards].equals(this.weaponsList[weaponCards])) {
-                    this.weapons.addPublicCards(weaponCards);
-                    break;
-                }
-            }
+            int[] result = findCardCategory(this.publicCards[publicCards]);
 
-            for (int suspectsCards = 0; suspectsCards < this.suspectsList.length; suspectsCards++) {
-                if (this.publicCards[publicCards].equals(this.suspectsList[suspectsCards])) {
-                    this.suspects.addPublicCards(suspectsCards);
-                    break;
-                }
-            }
+            if (result == null)
+                continue;
 
-            for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
-                if (this.publicCards[publicCards].equals(this.roomsList[roomCards])) {
-                    this.rooms.addPublicCards(roomCards);
-                    break;
-                }
-            }
+            int category = result[0];
+            int cardIndex = result[1];
+
+            if (category == 0)
+                this.weapons.addPublicCards(cardIndex);
+            else if (category == 1)
+                this.suspects.addPublicCards(cardIndex);
+            else
+                this.rooms.addPublicCards(cardIndex);
         }
     }
 
@@ -254,32 +248,20 @@ public class Partida {
         } while (this.playerCardList.length != correctAmountCards);
 
         for (int userCards = 0; userCards < this.playerCardList.length; userCards++) {
-            for (int weaponsCards = 0; weaponsCards < this.weaponsList.length; weaponsCards++) {
-                if (this.playerCardList[userCards].equals(this.weaponsList[weaponsCards])) {
-                    int index = weaponsCards + 1;
+            int[] result = findCardCategory(this.playerCardList[userCards]);
 
-                    this.weapons.addUserCards(index, this.userID);
-                    break;
-                }
-            }
+            if (result == null)
+                continue;
 
-            for (int suspectsCards = 0; suspectsCards < this.suspectsList.length; suspectsCards++) {
-                if (this.playerCardList[userCards].equals(this.suspectsList[suspectsCards])) {
-                    int index = suspectsCards + 1;
+            int category = result[0];
+            int cardIndex = result[1] + 1;
 
-                    this.suspects.addUserCards(index, this.userID);
-                    break;
-                }
-            }
-
-            for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
-                if (this.playerCardList[userCards].equals(this.roomsList[roomCards])) {
-                    int index = roomCards + 1;
-
-                    this.rooms.addUserCards(index, this.userID);
-                    break;
-                }
-            }
+            if (category == 0)
+                this.weapons.addUserCards(cardIndex, this.userID);
+            else if (category == 1)
+                this.suspects.addUserCards(cardIndex, this.userID);
+            else
+                this.rooms.addUserCards(cardIndex, this.userID);
         }
     }
 
@@ -590,29 +572,45 @@ public class Partida {
      * Metodo que actualiza la lista de cartas del jugador al que se pregunta.
      */
     private void addAskedCards(String askedCard, boolean askingStatus, int askedPlayerID) {
-        for (int weaponCards = 0; weaponCards < this.weaponsList.length; weaponCards++) {
-            if (askedCard.equals(this.weaponsList[weaponCards])) {
-                int askedCardID = weaponCards + 1;
+        int[] result = findCardCategory(askedCard);
 
-                this.weapons.addAskedCards(askedCardID, askedPlayerID, askingStatus);
-                break;
+        if (result == null)
+            return;
+
+        int category = result[0];
+        int cardIndex = result[1] + 1;
+
+        if (category == 0)
+            this.weapons.addAskedCards(cardIndex, askedPlayerID, askingStatus);
+        else if (category == 1)
+            this.suspects.addAskedCards(cardIndex, askedPlayerID, askingStatus);
+        else
+            this.rooms.addAskedCards(cardIndex, askedPlayerID, askingStatus);
+    }
+
+    /**
+     * Busca una carta en las tres listas y retorna su categoria e indice.
+     * 
+     * @param card Nombre de la carta a buscar.
+     * @return int[] donde [0] es la categoria (0=weapons, 1=suspects, 2=rooms)
+     *         y [1] es el indice. Null si no se encuentra.
+     */
+    private int[] findCardCategory(String card) {
+        for (int i = 0; i < this.weaponsList.length; i++) {
+            if (card.equals(this.weaponsList[i])) {
+                return new int[] { 0, i };
             }
         }
-        for (int suspectsCards = 0; suspectsCards < this.suspectsList.length; suspectsCards++) {
-            if (askedCard.equals(this.suspectsList[suspectsCards])) {
-                int askedCardID = suspectsCards + 1;
-
-                this.suspects.addAskedCards(askedCardID, askedPlayerID, askingStatus);
-                break;
+        for (int i = 0; i < this.suspectsList.length; i++) {
+            if (card.equals(this.suspectsList[i])) {
+                return new int[] { 1, i };
             }
         }
-        for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
-            if (askedCard.equals(this.roomsList[roomCards])) {
-                int askedCardID = roomCards + 1;
-
-                this.rooms.addAskedCards(askedCardID, askedPlayerID, askingStatus);
-                break;
+        for (int i = 0; i < this.roomsList.length; i++) {
+            if (card.equals(this.roomsList[i])) {
+                return new int[] { 2, i };
             }
         }
+        return null;
     }
 }

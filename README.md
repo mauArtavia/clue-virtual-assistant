@@ -10,12 +10,12 @@ Asistente de consola para el juego de mesa CLUE. Lleva un registro de probabilid
 El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactorizado con convenciones Java estándar, y limpiado de bugs de lógica conocidos.
 
 ### Bugs corregidos
-- [x] Bug de división entera en cálculo de probabilidades (`createDoubleMatriz`, `updatePossibilities`)
-- [x] Columna "Sobre" nunca se asignaba correctamente en `createMatriz`
-- [x] Recursión en `menu()` que podía causar `StackOverflow`
-- [x] `convertDoubleString()` se llamaba dentro de loops innecesariamente
-- [x] Rango de random incorrecto en `advanceStrategyQuestion`
-- [x] Variables redundantes e intermedias eliminadas
+- [X] Bug de división entera en cálculo de probabilidades (`createDoubleMatriz`, `updatePossibilities`)
+- [X] Columna "Sobre" nunca se asignaba correctamente en `createMatriz`
+- [X] Recursión en `menu()` que podía causar `StackOverflow`
+- [X] `convertDoubleString()` se llamaba dentro de loops innecesariamente
+- [X] Rango de random incorrecto en `advanceStrategyQuestion`
+- [X] Variables redundantes e intermedias eliminadas
 
 ---
 
@@ -25,7 +25,7 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 > Objetivo: dejar el código listo para crecer sin deuda técnica.
 
 - [X] **Encapsular métodos internos** — cambiar a `private` todos los métodos que no deben ser accesibles desde fuera de la clase: `players()`, `user()`, `cardLists()`, `createMatriz()`, `publicCardsList()`, `addPublicCards()`, `userCards()`, `printMatriz()`, `verifyPlayerCards()`, `analizeEnvelope()`, `getInfoObtained()`, `getInfoAsked()`, `validateCards()`, `addAskedCards()`
-- [ ] **Unificar `getInfoObtained()` y `getInfoAsked()`** — ambos métodos son casi idénticos. Refactorizar en un solo método `getInfo(boolean isUserTurn)` que maneje ambos casos
+- [X] **Unificar `getInfoObtained()` y `getInfoAsked()`** — ambos métodos son casi idénticos. Refactorizar en un solo método `getInfo(boolean isUserTurn)` que maneje ambos casos
 - [ ] **Extraer helper de búsqueda de cartas** — el patrón de buscar una carta en las tres listas (`weapons`, `suspects`, `rooms`) se repite en `addPublicCards()`, `userCards()`, `addAskedCards()`. Extraer en un método privado `findCardCategory(String card)`
 
 ### Fase 2 — Arquitectura (reorganizar responsabilidades)
