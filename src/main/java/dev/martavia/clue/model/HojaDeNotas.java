@@ -298,8 +298,9 @@ public class HojaDeNotas {
     public void addPublicCards(int index) {
         for (int col = 1; col < this.columns; col++) {
             this.possibilitiesStats[index + 1][col] = 0.0;
-            this.convertDoubleString();
         }
+
+        this.convertDoubleString();
     }
 
     /**
