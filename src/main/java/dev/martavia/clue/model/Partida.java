@@ -71,7 +71,7 @@ public class Partida {
     /**
      * Metodo que se encarga de pedir el nombre de todos los jugadores.
      */
-    public void players() {
+    private void players() {
         boolean canPlay = false;
         String enterPlayers;
 
@@ -93,7 +93,7 @@ public class Partida {
     /**
      * Metodo que se encarga de pedir el nombre del usuario.
      */
-    public void user() {
+    private void user() {
         boolean found = false;
         String enterUser;
 
@@ -120,7 +120,7 @@ public class Partida {
     /**
      * Metodo que se encarga de construir las listas de cartas.
      */
-    public void cardLists() {
+    private void cardLists() {
         String enterRooms;
         String enterSuspects;
         String enterWeapons;
@@ -150,7 +150,7 @@ public class Partida {
     /**
      * Metodo que se encarga de construir las matrices.
      */
-    public void createMatriz() {
+    private void createMatriz() {
         // =-=-= Creacion de los Objetos tipo HojaDeNotas de Armas, Sospechosos y
         // Habitaciones =-=-= \\
         this.weapons = new HojaDeNotas((this.playersList.length), (this.weaponsList.length));
@@ -179,7 +179,7 @@ public class Partida {
     /**
      * Metodo que se encarga de construir la lista de cartas publicas.
      */
-    public void publicCardsList() {
+    private void publicCardsList() {
         String enterPublicCards;
         String[] addPublicCards;
 
@@ -207,7 +207,7 @@ public class Partida {
      * Metodo que se encarga de eliminar las posibilidades relacionadas a las cartas
      * publicas.
      */
-    public void addPublicCards() {
+    private void addPublicCards() {
         for (int publicCards = 0; publicCards < this.publicCards.length; publicCards++) {
             for (int weaponCards = 0; weaponCards < this.weaponsList.length; weaponCards++) {
                 if (this.publicCards[publicCards].equals(this.weaponsList[weaponCards])) {
@@ -235,7 +235,7 @@ public class Partida {
     /**
      * Metodo que se encarga de construir la lista de cartas del jugador.
      */
-    public void userCards() {
+    private void userCards() {
         this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length)
                 + (this.roomsList.length)) - this.publicCardsAmount) - 3) / this.playersList.length;
 
@@ -286,7 +286,7 @@ public class Partida {
     /**
      * Metodo que se encarga de imprimir las matrices.
      */
-    public void printMatriz() {
+    private void printMatriz() {
         this.verifyPlayerCards();
         this.analizeEnvelope();
 
@@ -306,7 +306,7 @@ public class Partida {
     /**
      * Metodo que verifica cuantas cartas tiene un jugador.
      */
-    public void verifyPlayerCards() {
+    private void verifyPlayerCards() {
         int roomsCardsAmount = 0;
         int suspectsCardsAmount = 0;
         int totalCards = 0;
@@ -330,7 +330,7 @@ public class Partida {
     /**
      * Metodo que actualiza a 1.0 si ya solo queda una opcion para el sobre.
      */
-    public void analizeEnvelope() {
+    private void analizeEnvelope() {
         this.weapons.analizeEnvelope();
         this.suspects.analizeEnvelope();
         this.rooms.analizeEnvelope();
@@ -339,7 +339,7 @@ public class Partida {
     /**
      * Metodo que se encarga de manejar el menu interactivo del programa.
      */
-    public void menu() {
+    private void menu() {
         boolean stayPlaying = true;
         int optionPlay;
 
@@ -442,7 +442,7 @@ public class Partida {
     /**
      * Metodo que permite ingresar informacion obtenida por medio de otros usuarios.
      */
-    public void getInfoObtained() {
+    private void getInfoObtained() {
         boolean askingStatus;
         boolean canContinue = false;
         boolean continueAsking = true;
@@ -536,7 +536,7 @@ public class Partida {
      * Metodo que me pregunta por la pregunta final que hice, y me pide los datos
      * que me respondieron.
      */
-    public void getInfoAsked() {
+    private void getInfoAsked() {
         boolean askingStatus;
         boolean canContinue = false;
         boolean continueAsking = true;
@@ -640,7 +640,7 @@ public class Partida {
      * 
      * @return Un valor verdadero o falso segun existan las cartas.
      */
-    public boolean validateCards() {
+    private boolean validateCards() {
         boolean status = false;
 
         for (int askCard = 0; askCard < this.askedCards.length; askCard++) {
@@ -669,7 +669,7 @@ public class Partida {
     /**
      * Metodo que actualiza la lista de cartas del jugador al que se pregunta.
      */
-    public void addAskedCards(String askedCard, boolean askingStatus, int askedPlayerID) {
+    private void addAskedCards(String askedCard, boolean askingStatus, int askedPlayerID) {
         for (int weaponCards = 0; weaponCards < this.weaponsList.length; weaponCards++) {
             if (askedCard.equals(this.weaponsList[weaponCards])) {
                 int askedCardID = weaponCards + 1;
@@ -694,7 +694,5 @@ public class Partida {
                 break;
             }
         }
-
     }
-
 }
