@@ -266,26 +266,6 @@ public class Partida {
     }
 
     /**
-     * Metodo que se encarga de imprimir las matrices.
-     */
-    private void printMatriz() {
-        this.verifyPlayerCards();
-        this.analizeEnvelope();
-
-        System.out.println("=-=-=\nARMAS\n=-=-=");
-
-        this.weapons.reviewMatriz();
-
-        System.out.println("=-=-=-=-=-=\nSOSPECHOSOS\n=-=-=-=-=-=");
-
-        this.suspects.reviewMatriz();
-
-        System.out.println("=-=-=--=-=-=\nHABITACIONES\n=-=-=--=-=-=");
-
-        this.rooms.reviewMatriz();
-    }
-
-    /**
      * Metodo que verifica cuantas cartas tiene un jugador.
      */
     private void verifyPlayerCards() {
@@ -673,10 +653,6 @@ public class Partida {
         this.askedCards = cards;
     }
 
-    public void setAskedCards(String[] cards) {
-        this.askedCards = cards;
-    }
-
     // =-=-= GETTERS =-=-= \\
     /**
      * Retorna la lista de jugadores.
@@ -777,9 +753,6 @@ public class Partida {
      * Calcula y aplica las cartas del usuario a las matrices de probabilidades.
      */
     public void applyUserCards() {
-        this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length)
-                + (this.roomsList.length)) - this.publicCardsAmount) - 3) / this.playersList.length;
-
         for (int userCards = 0; userCards < this.playerCardList.length; userCards++) {
             int[] result = findCardCategory(this.playerCardList[userCards]);
 
@@ -867,5 +840,27 @@ public class Partida {
                     this.rooms.aleatoryQuestion()
             };
         };
+    }
+
+    /**
+     * Imprime las matrices de probabilidades de armas, sospechosos y habitaciones.
+     */
+    public void printMatriz() {
+        System.out.println("=-=-=\nARMAS\n=-=-=");
+        this.weapons.reviewMatriz();
+
+        System.out.println("=-=-=-=-=-=\nSOSPECHOSOS\n=-=-=-=-=-=");
+        this.suspects.reviewMatriz();
+
+        System.out.println("=-=-=--=-=-=\nHABITACIONES\n=-=-=--=-=-=");
+        this.rooms.reviewMatriz();
+    }
+
+    /**
+     * Calcula la cantidad de cartas que debe tener cada jugador.
+     */
+    public void calculateCorrectAmountCards() {
+        this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length)
+                + (this.roomsList.length)) - this.publicCardsAmount) - 3) / this.playersList.length;
     }
 }

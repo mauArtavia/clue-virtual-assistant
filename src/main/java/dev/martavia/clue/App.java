@@ -1,9 +1,8 @@
 package dev.martavia.clue;
 
-import dev.martavia.clue.model.Partida;
+import dev.martavia.clue.ui.ConsoleUI;
 
 /**
- * 
  * Clase App.
  * 
  * @author Mauricio Artavia Monge
@@ -16,7 +15,7 @@ public class App {
      * @param args Argumentos del programa.
      */
     public static void main(String[] args) {
-        Partida game = new Partida();
-        game.game();
+        ConsoleUI ui = new ConsoleUI();
+        ui.start();
     }
 }
