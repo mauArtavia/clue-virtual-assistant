@@ -395,4 +395,22 @@ public class HojaDeNotas {
             }
         }
     }
+
+    /**
+     * Retorna la matriz de probabilidades sin encabezados.
+     * 
+     * @return Matriz double[][] con probabilidades por carta y jugador.
+     */
+    public double[][] getProbabilities() {
+        int cardRows = this.rows - 1;
+        int playerCols = this.columns - 1;
+        double[][] result = new double[cardRows][playerCols];
+
+        for (int row = 0; row < cardRows; row++) {
+            for (int col = 0; col < playerCols; col++) {
+                result[row][col] = this.possibilitiesStats[row + 1][col + 1];
+            }
+        }
+        return result;
+    }
 }

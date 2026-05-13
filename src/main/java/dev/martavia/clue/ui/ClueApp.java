@@ -18,7 +18,9 @@ public class ClueApp extends Application {
         Partida partida = new Partida();
 
         SetupView setupView = new SetupView(partida, () -> {
-            System.out.println("Setup completo!");
+            GameView gameView = new GameView(partida);
+            Scene gameScene = new Scene(gameView, 950, 650);
+            stage.setScene(gameScene);
         });
 
         ScrollPane scroll = new ScrollPane(setupView);

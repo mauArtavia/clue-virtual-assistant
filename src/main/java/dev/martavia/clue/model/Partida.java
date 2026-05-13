@@ -459,4 +459,58 @@ public class Partida {
                         "Salon", "Vestibulo" }
         };
     }
+
+    /**
+     * Retorna la lista de armas.
+     * 
+     * @return Array con los nombres de las armas.
+     */
+    public String[] getWeaponsList() {
+        return this.weaponsList;
+    }
+
+    /**
+     * Retorna la lista de sospechosos.
+     * 
+     * @return Array con los nombres de los sospechosos.
+     */
+    public String[] getSuspectsList() {
+        return this.suspectsList;
+    }
+
+    /**
+     * Retorna la lista de habitaciones.
+     * 
+     * @return Array con los nombres de las habitaciones.
+     */
+    public String[] getRoomsList() {
+        return this.roomsList;
+    }
+
+    /**
+     * Retorna las probabilidades de la matriz de armas.
+     * 
+     * @return Matriz de probabilidades de armas.
+     */
+    public double[][] getWeaponsProbabilities() {
+        return this.weapons.getProbabilities();
+    }
+
+    /**
+     * Retorna las probabilidades de la matriz de sospechosos.
+     * 
+     * @return Matriz de probabilidades de sospechosos.
+     */
+    public double[][] getSuspectsProbabilities() {
+        return this.suspects.getProbabilities();
+    }
+
+    /**
+     * Retorna las probabilidades de la matriz de habitaciones.
+     * 
+     * @return Matriz de probabilidades de habitaciones.
+     */
+    public double[][] getRoomsProbabilities() {
+        return this.rooms.getProbabilities();
+    }
 }
