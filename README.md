@@ -54,9 +54,11 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 ### Fase 4 — Funcionalidad nueva (ideas futuras)
 > Objetivo: mejorar la experiencia de uso.
 
-- [ ] **Guardar y cargar partida** — serializar el estado del juego a un archivo para poder retomar una partida
-- [ ] **Interfaz gráfica simple** — migrar de consola a una UI básica con Java Swing o JavaFX
-- [ ] **Soporte para cartas del juego estándar precargadas** — en vez de ingresar todas las cartas manualmente, ofrecer las listas del juego original de CLUE como opción por defecto
+- [X] **Soporte para cartas del juego estándar precargadas** — el usuario puede elegir usar las cartas del CLUE clásico o ingresar las propias al inicio de la partida.
+
+- [ ] **Interfaz gráfica simple** — migrar de consola a una UI básica con Java Swing o JavaFX. Pendiente para una versión futura.
+
+- [ ] **Guardar y cargar partida** — descartado. El asistente está diseñado para usarse en tiempo real durante una partida física, por lo que pausar y retomar no es un caso de uso frecuente ni prioritario. Si se necesita, es más práctico reiniciar el asistente con los datos actuales.
 
 ---
 
