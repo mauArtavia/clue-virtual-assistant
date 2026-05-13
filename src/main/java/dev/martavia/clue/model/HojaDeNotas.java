@@ -120,14 +120,12 @@ public class HojaDeNotas {
      */
     public String aleatoryQuestion() {
         int row;
-        String answer;
 
         do {
             row = (int) (Math.random() * this.rows);
         } while (row == 0);
-        answer = this.possibilities[row][0];
 
-        return answer;
+        return this.possibilities[row][0];
     }
 
     /**
@@ -243,26 +241,13 @@ public class HojaDeNotas {
      * @return Una posible solucion.
      */
     public String knownEnvelope() {
-        boolean canReturn = false;
-        int objectPos = 0;
-        String answer = "";
-
         for (int row = 1; row < this.rows; row++) {
             if (this.possibilities[row][this.columns - 1].equals("1.0")) {
-                objectPos = row;
-                canReturn = true;
-
-                break;
+                return this.possibilities[row][0];
             }
         }
 
-        if (canReturn) {
-            answer = this.possibilities[objectPos][0];
-        } else {
-            answer = "{DESCONOCIDO}";
-        }
-
-        return answer;
+        return "{DESCONOCIDO}";
     }
 
     /**
