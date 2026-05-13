@@ -451,7 +451,6 @@ public class Partida {
         boolean haveAnswer = false;
         int askedPlayerID = 0;
         int counter = 0;
-        String askedCard = "";
         String askedPlayer = "";
         String haveInfo = "";
         String questionAnswer = "";
@@ -627,9 +626,6 @@ public class Partida {
                             System.out.println("=== ADVERTENCIA!!! Opcion Invalida, vuelva a intentarlo ===");
                             haveAnswer = false;
                         }
-                        this.weapons.convertDoubleString();
-                        this.suspects.convertDoubleString();
-                        this.rooms.convertDoubleString();
                     }
                 }
             } else {
