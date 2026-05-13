@@ -44,7 +44,7 @@ public class ConsoleUI {
 
             String[] players = scan.nextLine().split("-");
 
-            if (players.length >= 3 && players.length <= 6) {
+            if (players.length >= 2 && players.length <= 6) {
                 partida.setPlayers(players);
                 canPlay = true;
             } else {
@@ -77,19 +77,28 @@ public class ConsoleUI {
     }
 
     /**
-     * Solicita las listas de cartas del juego.
+     * Solicita las listas de cartas del juego, o usa las estandar de CLUE.
      */
     private void setupCards() {
-        System.out.print("Ingrese las cartas de armas, separadas por guion (-): ");
-        String[] weapons = scan.nextLine().split("-");
+        System.out.print("Desea usar las cartas estandar del juego clasico de CLUE? (SI/NO): ");
+        String response = scan.nextLine();
 
-        System.out.print("Ingrese las cartas de sospechosos, separadas por guion (-): ");
-        String[] suspects = scan.nextLine().split("-");
+        if (response.equalsIgnoreCase("SI")) {
+            String[][] defaultCards = partida.getDefaultCards();
+            partida.setCards(defaultCards[0], defaultCards[1], defaultCards[2]);
+        } else {
+            System.out.print("Ingrese las cartas de armas, separadas por guion (-): ");
+            String[] weapons = scan.nextLine().split("-");
 
-        System.out.print("Ingrese las cartas de habitaciones, separadas por guion (-): ");
-        String[] rooms = scan.nextLine().split("-");
+            System.out.print("Ingrese las cartas de sospechosos, separadas por guion (-): ");
+            String[] suspects = scan.nextLine().split("-");
 
-        partida.setCards(weapons, suspects, rooms);
+            System.out.print("Ingrese las cartas de habitaciones, separadas por guion (-): ");
+            String[] rooms = scan.nextLine().split("-");
+
+            partida.setCards(weapons, suspects, rooms);
+        }
+
         partida.initializeGame();
     }
 

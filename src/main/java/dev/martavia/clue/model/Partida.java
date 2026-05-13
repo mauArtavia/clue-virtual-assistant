@@ -444,4 +444,19 @@ public class Partida {
         this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length)
                 + (this.roomsList.length)) - this.publicCardsAmount) - 3) / this.playersList.length;
     }
+
+    /**
+     * Retorna las listas de cartas del juego clasico de CLUE.
+     * Indice 0: armas, indice 1: sospechosos, indice 2: habitaciones.
+     * 
+     * @return Array de 3 arrays con las cartas estandar.
+     */
+    public String[][] getDefaultCards() {
+        return new String[][] {
+                { "Candelabro", "Cuchillo", "Tuberia", "Revolver", "Cuerda", "LlaveInglesa" },
+                { "MissEscarlata", "CoronelMostaza", "SraBlanco", "RevVerde", "SraPavonReal", "ProfCiruela" },
+                { "Cocina", "SalaDeBaile", "Conservatorio", "Comedor", "SalaDeBillar", "Biblioteca", "Estudio",
+                        "Salon", "Vestibulo" }
+        };
+    }
 }

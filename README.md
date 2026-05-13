@@ -47,7 +47,7 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 ### Fase 3 — Calidad y testing
 > Objetivo: verificar que la lógica es correcta y documentar el comportamiento esperado.
 
-- [ ] **Escribir tests unitarios para `HojaDeNotas`** — cubrir: `createMatriz`, `createDoubleMatriz`, `addUserCards`, `addAskedCards`, `analizeEnvelope`, `updatePossibilities`
+- [X] **Escribir tests unitarios para `HojaDeNotas`** — cubrir: `createMatriz`, `createDoubleMatriz`, `addUserCards`, `addAskedCards`, `analizeEnvelope`, `updatePossibilities`
 - [X] **Verificar lógica de `validateCards()`** — actualmente retorna `true` si *alguna* de las 3 cartas existe, no si *todas* existen. Revisar si el comportamiento esperado es validar las 3 o al menos 1
 - [X] **Revisar condición de `analizeEnvelope()`** — el `rows - 2` es frágil, documentar o extraer como constante con nombre descriptivo
 
