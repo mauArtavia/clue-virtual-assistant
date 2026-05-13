@@ -214,9 +214,7 @@ public class HojaDeNotas {
             }
         }
 
-        answer = this.possibilities[row][0];
-
-        return answer;
+        return this.possibilities[row][0];
     }
 
     // =-=-= Analizadores & Modificadores de Matriz =-=-= \\
