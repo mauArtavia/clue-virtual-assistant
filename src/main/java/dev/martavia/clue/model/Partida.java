@@ -1,4 +1,4 @@
-package dev.martavia.clue;
+package dev.martavia.clue.model;
 
 import java.util.Scanner;
 

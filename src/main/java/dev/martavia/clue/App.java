@@ -1,5 +1,7 @@
 package dev.martavia.clue;
 
+import dev.martavia.clue.model.Partida;
+
 /**
  * 
  * Clase App.

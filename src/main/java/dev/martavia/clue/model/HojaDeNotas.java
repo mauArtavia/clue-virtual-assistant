@@ -1,4 +1,4 @@
-package dev.martavia.clue;
+package dev.martavia.clue.model;
 
 /**
  * Clase Hoja de Notas del programa, el cual lleva las matrices de los objetos.
