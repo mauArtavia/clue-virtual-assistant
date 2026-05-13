@@ -24,7 +24,7 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 ### Fase 1 — Refactoring interno (sin cambiar funcionalidad)
 > Objetivo: dejar el código listo para crecer sin deuda técnica.
 
-- [ ] **Encapsular métodos internos** — cambiar a `private` todos los métodos que no deben ser accesibles desde fuera de la clase: `players()`, `user()`, `cardLists()`, `createMatriz()`, `publicCardsList()`, `addPublicCards()`, `userCards()`, `printMatriz()`, `verifyPlayerCards()`, `analizeEnvelope()`, `getInfoObtained()`, `getInfoAsked()`, `validateCards()`, `addAskedCards()`
+- [X] **Encapsular métodos internos** — cambiar a `private` todos los métodos que no deben ser accesibles desde fuera de la clase: `players()`, `user()`, `cardLists()`, `createMatriz()`, `publicCardsList()`, `addPublicCards()`, `userCards()`, `printMatriz()`, `verifyPlayerCards()`, `analizeEnvelope()`, `getInfoObtained()`, `getInfoAsked()`, `validateCards()`, `addAskedCards()`
 - [ ] **Unificar `getInfoObtained()` y `getInfoAsked()`** — ambos métodos son casi idénticos. Refactorizar en un solo método `getInfo(boolean isUserTurn)` que maneje ambos casos
 - [ ] **Extraer helper de búsqueda de cartas** — el patrón de buscar una carta en las tres listas (`weapons`, `suspects`, `rooms`) se repite en `addPublicCards()`, `userCards()`, `addAskedCards()`. Extraer en un método privado `findCardCategory(String card)`
 

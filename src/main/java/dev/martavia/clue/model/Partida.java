@@ -360,7 +360,7 @@ public class Partida {
                 optionPlay = Integer.parseInt(scan.nextLine());
 
                 if (optionPlay == 1) {
-                    this.getInfoObtained();
+                    this.getInfo(false);
                     this.printMatriz();
                 } else if (optionPlay == 2) {
                     boolean correctQuestion = false;
@@ -382,7 +382,7 @@ public class Partida {
                                     + (this.suspects.aleatoryQuestion()) + " & "
                                     + (this.rooms.aleatoryQuestion()) + ".");
 
-                            this.getInfoAsked();
+                            this.getInfo(true);
 
                             correctQuestion = true;
                         } else if (questionType.equalsIgnoreCase("B")) {
@@ -391,7 +391,7 @@ public class Partida {
                                     + (this.suspects.partialAleatoryQuestion()) + " & "
                                     + (this.rooms.partialAleatoryQuestion()) + ".");
 
-                            this.getInfoAsked();
+                            this.getInfo(true);
 
                             correctQuestion = true;
                         } else if (questionType.equalsIgnoreCase("C")) {
@@ -400,7 +400,7 @@ public class Partida {
                                     + (this.suspects.advanceStrategyQuestion()) + " & "
                                     + (this.rooms.advanceStrategyQuestion()) + ".");
 
-                            this.getInfoAsked();
+                            this.getInfo(true);
 
                             correctQuestion = true;
                         } else if (questionType.equalsIgnoreCase("D")) {
@@ -409,7 +409,7 @@ public class Partida {
                                     + (this.suspects.idealStrategyQuestion()) + " & "
                                     + (this.rooms.idealStrategyQuestion()) + ".");
 
-                            this.getInfoAsked();
+                            this.getInfo(true);
 
                             correctQuestion = true;
                         } else {
@@ -440,103 +440,12 @@ public class Partida {
 
     // =-=-= Metodos incluidos en menu =-=-= \\
     /**
-     * Metodo que permite ingresar informacion obtenida por medio de otros usuarios.
+     * Metodo que permite ingresar informacion obtenida durante la partida.
+     * 
+     * @param isUserTurn Indica si es el turno del usuario (true) o de otro jugador
+     *                   (false).
      */
-    private void getInfoObtained() {
-        boolean askingStatus;
-        boolean canContinue = false;
-        boolean continueAsking = true;
-        boolean correctAmountCards = false;
-        boolean found = false;
-        boolean haveAnswer = false;
-        int askedPlayerID = 0;
-        int counter = 0;
-        String askedPlayer = "";
-        String haveInfo = "";
-        String questionAnswer = "";
-
-        while (!canContinue) {
-            while (!correctAmountCards) {
-                System.out.print(
-                        "Digite la combinacion de 3 cartas por la cual han preguntado, separadas por guion (-): ");
-
-                questionAnswer = scan.nextLine();
-                this.askedCards = questionAnswer.split("-");
-
-                if (this.askedCards.length != 3) {
-                    System.out.println("=== CUIDADO!! Usted no ha digitado una combinacion de 3 cartas ===");
-
-                    correctAmountCards = false;
-                } else {
-                    correctAmountCards = true;
-                }
-            }
-            canContinue = this.validateCards();
-
-            if (canContinue) {
-                while (!haveAnswer) {
-                    found = false;
-
-                    if (counter == this.playersList.length - 1) {
-                        found = true;
-                        haveAnswer = true;
-                        continueAsking = false;
-                    }
-
-                    while (!found) {
-                        System.out.print("Por favor, ingrese quien responde: ");
-
-                        askedPlayer = scan.nextLine();
-
-                        for (int i = 0; i < this.playersList.length; i++) {
-                            if (this.playersList[i].equals(askedPlayer)) {
-                                found = true;
-                                askedPlayerID = i;
-                                break;
-                            }
-                        }
-
-                        if (!found) {
-                            System.out.println("=== Usted ha ingresado un nombre no valido ===");
-                        }
-                    }
-                    if (continueAsking) {
-                        System.out.print("Tenia alguna informacion?\nSI O NO? ");
-
-                        haveInfo = scan.nextLine();
-
-                        if (haveInfo.equalsIgnoreCase("SI")) {
-                            haveAnswer = true;
-                            counter = this.playersList.length + 1;
-                        } else if (haveInfo.equalsIgnoreCase("NO")) {
-                            askingStatus = false;
-
-                            for (int i = 0; i < this.askedCards.length; i++) {
-                                this.addAskedCards(this.askedCards[i], askingStatus, askedPlayerID);
-                            }
-
-                            haveAnswer = false;
-                            counter++;
-                            found = false;
-                        } else {
-                            System.out.println("=== ADVERTENCIA!!! Opcion Invalida, vuelva a intentarlo ===");
-
-                            haveAnswer = false;
-                        }
-                    }
-                }
-            } else {
-                System.out.println("=== OJO!!! Usted ha digitado cartas con las cuales usted no esta jugando, tenga "
-                        + "cuidado y digite cartas existentes ===");
-            }
-        }
-    }
-
-    /**
-     * Metodo que me pregunta por la pregunta final que hice, y me pide los datos
-     * que me respondieron.
-     */
-    private void getInfoAsked() {
+    private void getInfo(boolean isUserTurn) {
         boolean askingStatus;
         boolean canContinue = false;
         boolean continueAsking = true;
@@ -552,8 +461,13 @@ public class Partida {
 
         while (!canContinue) {
             while (!correctAmountCards) {
-                System.out.print(
-                        "Digite la combinacion de 3 cartas por la cual ha preguntado, separadas por guion (-): ");
+                if (isUserTurn) {
+                    System.out.print(
+                            "Digite la combinacion de 3 cartas por la cual ha preguntado, separadas por guion (-): ");
+                } else {
+                    System.out.print(
+                            "Digite la combinacion de 3 cartas por la cual han preguntado, separadas por guion (-): ");
+                }
 
                 questionAnswer = scan.nextLine();
                 this.askedCards = questionAnswer.split("-");
@@ -580,7 +494,11 @@ public class Partida {
                     }
 
                     while (!found) {
-                        System.out.print("Por favor, ingrese quien le responde: ");
+                        if (isUserTurn) {
+                            System.out.print("Por favor, ingrese quien le responde: ");
+                        } else {
+                            System.out.print("Por favor, ingrese quien responde: ");
+                        }
 
                         askedPlayer = scan.nextLine();
 
@@ -603,13 +521,14 @@ public class Partida {
                         haveInfo = scan.nextLine();
 
                         if (haveInfo.equalsIgnoreCase("SI")) {
-                            askingStatus = true;
+                            if (isUserTurn) {
+                                System.out.print("Que carta tiene? ");
 
-                            System.out.print("Que carta tiene? ");
+                                askedCard = scan.nextLine();
 
-                            askedCard = scan.nextLine();
+                                this.addAskedCards(askedCard, true, askedPlayerID);
+                            }
 
-                            this.addAskedCards(askedCard, askingStatus, askedPlayerID);
                             haveAnswer = true;
                             counter = this.playersList.length + 1;
                         } else if (haveInfo.equalsIgnoreCase("NO")) {
@@ -624,6 +543,7 @@ public class Partida {
                             found = false;
                         } else {
                             System.out.println("=== ADVERTENCIA!!! Opcion Invalida, vuelva a intentarlo ===");
+
                             haveAnswer = false;
                         }
                     }
