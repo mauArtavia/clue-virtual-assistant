@@ -136,7 +136,6 @@ public class HojaDeNotas {
      */
     public String partialAleatoryQuestion() {
         int col, row;
-        String answer;
 
         do {
             row = (int) (Math.random() * this.rows);
@@ -151,9 +150,8 @@ public class HojaDeNotas {
                 col = 0;
             }
         } while (row == 0 && col == 0);
-        answer = this.possibilities[row][0];
 
-        return answer;
+        return this.possibilities[row][0];
     }
 
     /**
@@ -163,7 +161,8 @@ public class HojaDeNotas {
      */
     public String advanceStrategyQuestion() {
         boolean value1Found = false;
-        int col, row;
+        int col;
+        int row = 0;
         String answer = "";
 
         col = (this.columns - 1);
@@ -203,7 +202,6 @@ public class HojaDeNotas {
         int row = 0;
         int col = (this.columns - 1);
         double initialValue = 0.0;
-        String answer = "";
 
         for (int r = 1; r < this.rows; r++) {
             if (this.possibilitiesStats[r][col] > initialValue) {
@@ -346,11 +344,10 @@ public class HojaDeNotas {
      * @param userID Ubicacion en matriz del usuario.
      */
     public void analizeUserCards(int userID) {
-        int col = userID;
 
         for (int row = 1; row < this.rows; row++) {
-            if (this.possibilitiesStats[row][col] != 1.0) {
-                this.possibilitiesStats[row][col] = 0.0;
+            if (this.possibilitiesStats[row][userID] != 1.0) {
+                this.possibilitiesStats[row][userID] = 0.0;
             }
         }
     }
