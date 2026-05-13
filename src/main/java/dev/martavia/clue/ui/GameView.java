@@ -72,7 +72,7 @@ public class GameView extends BorderPane {
         Button exitButton = styledButton("❌ Salir", "#e94560");
 
         infoButton.setOnAction(e -> showInfoDialog(false));
-        turnButton.setOnAction(e -> showTurnDialog());
+        turnButton.setOnAction(e -> showInfoDialog(true));
         exitButton.setOnAction(e -> System.exit(0));
 
         HBox buttons = new HBox(10, infoButton, turnButton, exitButton);
@@ -87,10 +87,14 @@ public class GameView extends BorderPane {
         label.setFont(Font.font("System", FontWeight.BOLD, 13));
         label.setStyle("-fx-text-fill: #e94560;");
 
-        VBox box = new VBox(5, label, table);
+        ScrollPane tableScroll = new ScrollPane(table);
+        tableScroll.setFitToWidth(false);
+        tableScroll.setStyle("-fx-background: #16213e; -fx-background-color: #16213e;");
+        tableScroll.setPrefHeight(400);
+
+        VBox box = new VBox(5, label, tableScroll);
         box.setPadding(new Insets(10));
         box.setStyle("-fx-background-color: #16213e; -fx-background-radius: 8;");
-        box.setPrefWidth(280);
         return box;
     }
 
@@ -153,23 +157,21 @@ public class GameView extends BorderPane {
 
     private Label styledCell(String text, boolean isHeader, boolean isName) {
         Label l = new Label(text);
-        l.setPrefWidth(60);
         l.setAlignment(Pos.CENTER);
         l.setPadding(new Insets(3));
+
         if (isHeader) {
+            l.setPrefWidth(70);
             l.setStyle("-fx-text-fill: #a8dadc; -fx-font-weight: bold; -fx-font-size: 11px;");
         } else if (isName) {
+            l.setPrefWidth(110); // ← más ancho para nombres de cartas
+            l.setAlignment(Pos.CENTER_LEFT);
             l.setStyle("-fx-text-fill: #e0e0e0; -fx-font-size: 11px;");
-            l.setPrefWidth(80);
         } else {
+            l.setPrefWidth(55);
             l.setStyle("-fx-text-fill: #e0e0e0; -fx-font-size: 11px;");
         }
         return l;
-    }
-
-    private void showTurnDialog() {
-        // Por ahora placeholder
-        showInfoDialog(true);
     }
 
     private void showInfoDialog(boolean isUserTurn) {
