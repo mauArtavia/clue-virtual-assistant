@@ -1,14 +1,13 @@
 package dev.martavia.clue;
 
-import dev.martavia.clue.ui.ClueApp;
-import javafx.application.Application;
+import dev.martavia.clue.ui.ConsoleUI;
 
 /**
- * Clase App — punto de entrada del programa.
+ * Clase App.
  * 
  * @author Mauricio Artavia Monge
  */
-public class App {
+public class App_Console {
 
     /**
      * Metodo main del programa Asistente Virtual CLUE.
@@ -16,6 +15,7 @@ public class App {
      * @param args Argumentos del programa.
      */
     public static void main(String[] args) {
-        Application.launch(ClueApp.class, args);
+        ConsoleUI ui = new ConsoleUI();
+        ui.start();
     }
 }

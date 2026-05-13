@@ -58,7 +58,7 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 
 - [ ] **Interfaz gráfica simple** — migrar de consola a una UI básica con Java Swing o JavaFX. Pendiente para una versión futura.
 
-- [ ] **Guardar y cargar partida** — descartado. El asistente está diseñado para usarse en tiempo real durante una partida física, por lo que pausar y retomar no es un caso de uso frecuente ni prioritario. Si se necesita, es más práctico reiniciar el asistente con los datos actuales.
+- [ ] **Guardar y cargar partida** — ***descartado***. El asistente está diseñado para usarse en tiempo real durante una partida física, por lo que pausar y retomar no es un caso de uso frecuente ni prioritario. Si se necesita, es más práctico reiniciar el asistente con los datos actuales.
 
 ---
 
