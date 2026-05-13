@@ -145,7 +145,6 @@ public class HojaDeNotas {
             col = (this.columns - 1);
 
             if (row == 0) {
-                row = 0;
                 col = 0;
             }
 
@@ -182,14 +181,15 @@ public class HojaDeNotas {
         }
 
         if (!value1Found) {
+            boolean validFound = false;
             do {
-                row = (int) (Math.random() * this.rows);
+                row = 1 + (int) (Math.random() * (this.rows - 1));
 
-                if (this.possibilities[row][col].equals("0.0")) {
-                    row = 0;
-                    col = 0;
+                if (!this.possibilities[row][col].equals("0.0")) {
+                    validFound = true;
                 }
-            } while (row == 0 && col == 0);
+            } while (!validFound);
+
             answer = this.possibilities[row][0];
         }
 
