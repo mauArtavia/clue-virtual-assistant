@@ -59,8 +59,6 @@ public class HojaDeNotas {
      * (doubles).
      */
     public void createDoubleMatriz() {
-        int contador;
-
         this.possibilitiesStats = new double[this.rows + 1][this.columns + 2];
 
         for (int row = 0; row < this.rows; row++) {
@@ -74,7 +72,7 @@ public class HojaDeNotas {
         }
 
         for (int fila = 1; fila < this.rows; fila++) {
-            contador = 0;
+            int contador = 0;
 
             for (int col = 1; col < this.columns; col++) {
                 if (this.possibilitiesStats[fila][col] != 0.0 && this.possibilitiesStats[fila][col] != 1.0) {
@@ -387,14 +385,14 @@ public class HojaDeNotas {
             }
         }
 
-        this.updatepossibilities();
+        this.updatePossibilities();
         this.convertDoubleString();
     }
 
     /**
      * Actualiza las posibilidades de la matriz.
      */
-    public void updatepossibilities() {
+    public void updatePossibilities() {
         int counter;
 
         for (int fila = 1; fila < this.rows; fila++) {
