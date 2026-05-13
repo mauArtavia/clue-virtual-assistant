@@ -26,7 +26,7 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 
 - [X] **Encapsular métodos internos** — cambiar a `private` todos los métodos que no deben ser accesibles desde fuera de la clase: `players()`, `user()`, `cardLists()`, `createMatriz()`, `publicCardsList()`, `addPublicCards()`, `userCards()`, `printMatriz()`, `verifyPlayerCards()`, `analizeEnvelope()`, `getInfoObtained()`, `getInfoAsked()`, `validateCards()`, `addAskedCards()`
 - [X] **Unificar `getInfoObtained()` y `getInfoAsked()`** — ambos métodos son casi idénticos. Refactorizar en un solo método `getInfo(boolean isUserTurn)` que maneje ambos casos
-- [ ] **Extraer helper de búsqueda de cartas** — el patrón de buscar una carta en las tres listas (`weapons`, `suspects`, `rooms`) se repite en `addPublicCards()`, `userCards()`, `addAskedCards()`. Extraer en un método privado `findCardCategory(String card)`
+- [X] **Extraer helper de búsqueda de cartas** — el patrón de buscar una carta en las tres listas (`weapons`, `suspects`, `rooms`) se repite en `addPublicCards()`, `userCards()`, `addAskedCards()`. Extraer en un método privado `findCardCategory(String card)`
 
 ### Fase 2 — Arquitectura (reorganizar responsabilidades)
 > Objetivo: separar la lógica de negocio de la interacción con el usuario.

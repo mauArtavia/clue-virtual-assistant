@@ -613,4 +613,259 @@ public class Partida {
         }
         return null;
     }
+
+    // =-=-= SETTERS =-=-= \\
+    /**
+     * Asigna la lista de jugadores de la partida.
+     * 
+     * @param players Array con los nombres de los jugadores.
+     */
+    public void setPlayers(String[] players) {
+        this.playersList = players;
+    }
+
+    /**
+     * Asigna el ID del jugador usuario.
+     * 
+     * @param id Posicion del usuario en la lista de jugadores.
+     */
+    public void setUserID(int id) {
+        this.userID = id;
+    }
+
+    /**
+     * Asigna las listas de cartas del juego.
+     * 
+     * @param weapons  Array con los nombres de las armas.
+     * @param suspects Array con los nombres de los sospechosos.
+     * @param rooms    Array con los nombres de las habitaciones.
+     */
+    public void setCards(String[] weapons, String[] suspects, String[] rooms) {
+        this.weaponsList = weapons;
+        this.suspectsList = suspects;
+        this.roomsList = rooms;
+    }
+
+    /**
+     * Asigna las cartas publicas de la partida.
+     * 
+     * @param publicCards Array con los nombres de las cartas publicas.
+     */
+    public void setPublicCards(String[] publicCards) {
+        this.publicCards = publicCards;
+    }
+
+    /**
+     * Asigna las cartas del usuario.
+     * 
+     * @param cards Array con los nombres de las cartas del usuario.
+     */
+    public void setUserCards(String[] cards) {
+        this.playerCardList = cards;
+    }
+
+    /**
+     * Asigna las cartas preguntadas en una ronda.
+     * 
+     * @param cards Array con los nombres de las cartas preguntadas.
+     */
+    public void setAskedCards(String[] cards) {
+        this.askedCards = cards;
+    }
+
+    public void setAskedCards(String[] cards) {
+        this.askedCards = cards;
+    }
+
+    // =-=-= GETTERS =-=-= \\
+    /**
+     * Retorna la lista de jugadores.
+     * 
+     * @return Array con los nombres de los jugadores.
+     */
+    public String[] getPlayersList() {
+        return this.playersList;
+    }
+
+    /**
+     * Retorna el ID del usuario en la lista de jugadores.
+     * 
+     * @return Posicion del usuario en la lista de jugadores.
+     */
+    public int getUserID() {
+        return this.userID;
+    }
+
+    /**
+     * Retorna la cantidad de cartas publicas de la partida.
+     * 
+     * @return Cantidad de cartas publicas.
+     */
+    public int getPublicCardsAmount() {
+        return this.publicCardsAmount;
+    }
+
+    /**
+     * Retorna la cantidad correcta de cartas por jugador.
+     * 
+     * @return Cantidad de cartas que debe tener cada jugador.
+     */
+    public int getCorrectAmountCards() {
+        return this.correctAmountCards;
+    }
+
+    /**
+     * Retorna el arma conocida del sobre, o DESCONOCIDO si no se sabe.
+     * 
+     * @return Nombre del arma en el sobre.
+     */
+    public String getEnvelopeWeapon() {
+        return this.weapons.knownEnvelope();
+    }
+
+    /**
+     * Retorna el sospechoso conocido del sobre, o DESCONOCIDO si no se sabe.
+     * 
+     * @return Nombre del sospechoso en el sobre.
+     */
+    public String getEnvelopeSuspect() {
+        return this.suspects.knownEnvelope();
+    }
+
+    /**
+     * Retorna la habitacion conocida del sobre, o DESCONOCIDO si no se sabe.
+     * 
+     * @return Nombre de la habitacion en el sobre.
+     */
+    public String getEnvelopeRoom() {
+        return this.rooms.knownEnvelope();
+    }
+
+    // =-=-= METODOS DE LOGICA =-=-= \\
+    /**
+     * Busca el ID de un jugador por su nombre.
+     * 
+     * @param name Nombre del jugador a buscar.
+     * @return Posicion del jugador en la lista, o -1 si no existe.
+     */
+    public int findUserID(String name) {
+        for (int i = 0; i < this.playersList.length; i++) {
+            if (this.playersList[i].equals(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Inicializa las matrices del juego y calcula la cantidad de cartas publicas.
+     */
+    public void initializeGame() {
+        this.createMatriz();
+        this.publicCardsAmount = (((this.weaponsList.length) + (this.suspectsList.length)
+                + (this.roomsList.length)) % (this.playersList.length));
+    }
+
+    /**
+     * Aplica las cartas publicas a las matrices de probabilidades.
+     */
+    public void applyPublicCards() {
+        this.addPublicCards();
+    }
+
+    /**
+     * Calcula y aplica las cartas del usuario a las matrices de probabilidades.
+     */
+    public void applyUserCards() {
+        this.correctAmountCards = ((((this.weaponsList.length) + (this.suspectsList.length)
+                + (this.roomsList.length)) - this.publicCardsAmount) - 3) / this.playersList.length;
+
+        for (int userCards = 0; userCards < this.playerCardList.length; userCards++) {
+            int[] result = findCardCategory(this.playerCardList[userCards]);
+
+            if (result == null)
+                continue;
+
+            int category = result[0];
+            int cardIndex = result[1] + 1;
+
+            if (category == 0)
+                this.weapons.addUserCards(cardIndex, this.userID);
+            else if (category == 1)
+                this.suspects.addUserCards(cardIndex, this.userID);
+            else
+                this.rooms.addUserCards(cardIndex, this.userID);
+        }
+    }
+
+    /**
+     * Actualiza las matrices verificando cartas conocidas y el sobre.
+     */
+    public void refreshMatriz() {
+        this.verifyPlayerCards();
+        this.analizeEnvelope();
+    }
+
+    /**
+     * Valida si un conjunto de cartas existe en las listas del juego.
+     * 
+     * @param cards Array de 3 cartas a validar.
+     * @return true si todas las cartas existen, false si alguna no existe.
+     */
+    public boolean validateCards(String[] cards) {
+        this.askedCards = cards;
+        return this.validateCards();
+    }
+
+    /**
+     * Procesa la informacion obtenida en una ronda de preguntas.
+     * 
+     * @param cards       Array de 3 cartas preguntadas.
+     * @param responderID ID del jugador que responde.
+     * @param hadInfo     true si el jugador tenia alguna de las cartas.
+     * @param knownCard   Nombre de la carta conocida, null si no se sabe cual es.
+     */
+    public void processInfo(String[] cards, int responderID, boolean hadInfo, String knownCard) {
+        this.askedCards = cards;
+
+        if (hadInfo && knownCard != null) {
+            this.addAskedCards(knownCard, true, responderID);
+        } else if (!hadInfo) {
+            for (String card : cards) {
+                this.addAskedCards(card, false, responderID);
+            }
+        }
+    }
+
+    /**
+     * Retorna una sugerencia de pregunta segun la estrategia indicada.
+     * 
+     * @param strategy Estrategia a usar: "A" aleatorio, "B" parcial, "C" avanzado,
+     *                 "D" ideal.
+     * @return Array de 3 cartas sugeridas: [arma, sospechoso, habitacion].
+     */
+    public String[] getSuggestedQuestion(String strategy) {
+        return switch (strategy.toUpperCase()) {
+            case "B" -> new String[] {
+                    this.weapons.partialAleatoryQuestion(),
+                    this.suspects.partialAleatoryQuestion(),
+                    this.rooms.partialAleatoryQuestion()
+            };
+            case "C" -> new String[] {
+                    this.weapons.advanceStrategyQuestion(),
+                    this.suspects.advanceStrategyQuestion(),
+                    this.rooms.advanceStrategyQuestion()
+            };
+            case "D" -> new String[] {
+                    this.weapons.idealStrategyQuestion(),
+                    this.suspects.idealStrategyQuestion(),
+                    this.rooms.idealStrategyQuestion()
+            };
+            default -> new String[] {
+                    this.weapons.aleatoryQuestion(),
+                    this.suspects.aleatoryQuestion(),
+                    this.rooms.aleatoryQuestion()
+            };
+        };
+    }
 }
