@@ -112,37 +112,6 @@ public class Partida {
     }
 
     /**
-     * Metodo que valida si existen las cartas que el usuario pregunta o no.
-     * 
-     * @return Un valor verdadero o falso segun existan las cartas.
-     */
-    private boolean validateCards() {
-        boolean status = false;
-
-        for (int askCard = 0; askCard < this.askedCards.length; askCard++) {
-            for (int weaCards = 0; weaCards < this.weaponsList.length; weaCards++) {
-                if (this.askedCards[askCard].equals(this.weaponsList[weaCards])) {
-                    status = true;
-                    break;
-                }
-            }
-            for (int susCards = 0; susCards < this.suspectsList.length; susCards++) {
-                if (this.askedCards[askCard].equals(this.suspectsList[susCards])) {
-                    status = true;
-                    break;
-                }
-            }
-            for (int roomCards = 0; roomCards < this.roomsList.length; roomCards++) {
-                if (this.askedCards[askCard].equals(this.roomsList[roomCards])) {
-                    status = true;
-                    break;
-                }
-            }
-        }
-        return status;
-    }
-
-    /**
      * Metodo que actualiza la lista de cartas del jugador al que se pregunta.
      */
     private void addAskedCards(String askedCard, boolean askingStatus, int askedPlayerID) {
@@ -375,13 +344,31 @@ public class Partida {
 
     /**
      * Valida si un conjunto de cartas existe en las listas del juego.
+     * Verifica que haya exactamente una carta por categoria.
      * 
      * @param cards Array de 3 cartas a validar.
-     * @return true si todas las cartas existen, false si alguna no existe.
+     * @return true si existe una arma, un sospechoso y una habitacion validos.
      */
     public boolean validateCards(String[] cards) {
         this.askedCards = cards;
-        return this.validateCards();
+        boolean hasWeapon = false;
+        boolean hasSuspect = false;
+        boolean hasRoom = false;
+
+        for (String card : cards) {
+            int[] result = findCardCategory(card);
+            if (result == null)
+                continue;
+
+            if (result[0] == 0)
+                hasWeapon = true;
+            else if (result[0] == 1)
+                hasSuspect = true;
+            else
+                hasRoom = true;
+        }
+
+        return hasWeapon && hasSuspect && hasRoom;
     }
 
     /**

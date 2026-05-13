@@ -324,7 +324,8 @@ public class HojaDeNotas {
             }
         }
 
-        if (counter == this.rows - 2) {
+        int totalCardRows = this.rows - 1; // filas de cartas, sin contar encabezado
+        if (counter == totalCardRows - 1) { // todas menos una tienen 0.0
             for (int row = 1; row < this.rows; row++) {
                 if (this.possibilitiesStats[row][col] != 0.0) {
                     this.possibilitiesStats[row][col] = 1.0;
