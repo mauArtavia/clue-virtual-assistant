@@ -31,7 +31,7 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
 ### Fase 2 — Arquitectura (reorganizar responsabilidades)
 > Objetivo: separar la lógica de negocio de la interacción con el usuario.
 
-- [ ] **Mover archivos a subpaquetes** — organizar según responsabilidad:
+- [X] **Mover archivos a subpaquetes** — organizar según responsabilidad:
   ```
   dev/martavia/clue/
   ├── App.java
@@ -41,15 +41,15 @@ El proyecto fue migrado del repo de la universidad a `martavia.dev`, refactoriza
   ├── ui/
   └── util/
   ```
-- [ ] **Separar UI de lógica en `Partida`** — extraer toda interacción con `Scanner` a una clase `ConsoleUI` en el paquete `ui/`. `Partida` solo debería manejar estado del juego, no imprimir ni leer input
-- [ ] **Eliminar dependencia de `Scanner` en `Partida`** — inyectar el input como parámetro o mediante una interfaz, para facilitar testing futuro
+- [X] **Separar UI de lógica en `Partida`** — extraer toda interacción con `Scanner` a una clase `ConsoleUI` en el paquete `ui/`. `Partida` solo debería manejar estado del juego, no imprimir ni leer input
+- [X] **Eliminar dependencia de `Scanner` en `Partida`** — inyectar el input como parámetro o mediante una interfaz, para facilitar testing futuro
 
 ### Fase 3 — Calidad y testing
 > Objetivo: verificar que la lógica es correcta y documentar el comportamiento esperado.
 
 - [ ] **Escribir tests unitarios para `HojaDeNotas`** — cubrir: `createMatriz`, `createDoubleMatriz`, `addUserCards`, `addAskedCards`, `analizeEnvelope`, `updatePossibilities`
-- [ ] **Verificar lógica de `validateCards()`** — actualmente retorna `true` si *alguna* de las 3 cartas existe, no si *todas* existen. Revisar si el comportamiento esperado es validar las 3 o al menos 1
-- [ ] **Revisar condición de `analizeEnvelope()`** — el `rows - 2` es frágil, documentar o extraer como constante con nombre descriptivo
+- [X] **Verificar lógica de `validateCards()`** — actualmente retorna `true` si *alguna* de las 3 cartas existe, no si *todas* existen. Revisar si el comportamiento esperado es validar las 3 o al menos 1
+- [X] **Revisar condición de `analizeEnvelope()`** — el `rows - 2` es frágil, documentar o extraer como constante con nombre descriptivo
 
 ### Fase 4 — Funcionalidad nueva (ideas futuras)
 > Objetivo: mejorar la experiencia de uso.
