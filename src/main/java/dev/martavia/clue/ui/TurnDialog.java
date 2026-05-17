@@ -115,22 +115,15 @@ public class TurnDialog extends Dialog<Void> {
     }
 
     private void buildRespondersFlow(VBox container, String[] cards) {
-        // Limpiar respuestas anteriores si las hay
         if (container.getChildren().size() > 3) {
             container.getChildren().remove(3, container.getChildren().size());
         }
 
         String[] players = partida.getPlayersList();
+        int[] currentIndex = { 0 };
 
-        Label responderLabel = new Label("¿Quien responde?");
-        responderLabel.setStyle("-fx-text-fill: #e0e0e0;");
-
-        ComboBox<String> responderCombo = new ComboBox<>();
-        for (String player : players) {
-            responderCombo.getItems().add(player);
-        }
-        responderCombo.setStyle("-fx-background-color: #0f3460; -fx-text-fill: white;");
-        responderCombo.getSelectionModel().selectFirst();
+        Label responderLabel = new Label();
+        responderLabel.setStyle("-fx-text-fill: #a8dadc; -fx-font-weight: bold;");
 
         Label hasInfoLabel = new Label("¿Tenia informacion?");
         hasInfoLabel.setStyle("-fx-text-fill: #e0e0e0;");
@@ -139,6 +132,9 @@ public class TurnDialog extends Dialog<Void> {
         Button noButton = new Button("NO");
         yesButton.setStyle("-fx-background-color: #4ade80; -fx-text-fill: #1a1a2e; -fx-font-weight: bold;");
         noButton.setStyle("-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold;");
+
+        HBox answerButtons = new HBox(10, yesButton, noButton);
+        answerButtons.setAlignment(Pos.CENTER_LEFT);
 
         VBox knownCardBox = new VBox(5);
         knownCardBox.setVisible(false);
@@ -154,8 +150,7 @@ public class TurnDialog extends Dialog<Void> {
         Button confirmKnown = new Button("Confirmar");
         confirmKnown.setStyle("-fx-background-color: #0f3460; -fx-text-fill: #a8dadc;");
         confirmKnown.setOnAction(e -> {
-            String responder = responderCombo.getValue();
-            int responderID = partida.findUserID(responder);
+            int responderID = partida.findUserID(players[currentIndex[0]]);
             partida.processInfo(cards, responderID, true, knownField.getText().trim());
             onComplete.run();
             close();
@@ -163,25 +158,47 @@ public class TurnDialog extends Dialog<Void> {
 
         knownCardBox.getChildren().addAll(knownLabel, knownField, confirmKnown);
 
+        // Actualiza el estado según el jugador actual
+        Runnable updateState = () -> {
+            if (currentIndex[0] >= players.length) {
+                responderLabel.setText("Nadie tuvo informacion.");
+                hasInfoLabel.setVisible(false);
+                hasInfoLabel.setManaged(false);
+                answerButtons.setVisible(false);
+                answerButtons.setManaged(false);
+
+                Button closeBtn = new Button("Cerrar");
+                closeBtn.setStyle("-fx-background-color: #0f3460; -fx-text-fill: #a8dadc;");
+                closeBtn.setOnAction(ev -> {
+                    onComplete.run();
+                    close();
+                });
+                container.getChildren().add(closeBtn);
+            } else {
+                responderLabel.setText("¿" + players[currentIndex[0]] + " tenia informacion?");
+            }
+        };
+
+        updateState.run();
+
         yesButton.setOnAction(e -> {
             knownCardBox.setVisible(true);
             knownCardBox.setManaged(true);
+            yesButton.setDisable(true);
+            noButton.setDisable(true);
         });
 
         noButton.setOnAction(e -> {
-            String responder = responderCombo.getValue();
-            int responderID = partida.findUserID(responder);
+            int responderID = partida.findUserID(players[currentIndex[0]]);
             partida.processInfo(cards, responderID, false, null);
-            onComplete.run();
-            close();
+            currentIndex[0]++;
+            updateState.run();
         });
 
-        HBox answerButtons = new HBox(10, yesButton, noButton);
-        answerButtons.setAlignment(Pos.CENTER_LEFT);
-
         container.getChildren().addAll(
-                responderLabel, responderCombo,
-                hasInfoLabel, answerButtons,
+                responderLabel,
+                hasInfoLabel,
+                answerButtons,
                 knownCardBox);
     }
 
