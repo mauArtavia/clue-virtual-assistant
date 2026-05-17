@@ -72,7 +72,10 @@ public class GameView extends BorderPane {
         Button exitButton = styledButton("❌ Salir", "#e94560");
 
         infoButton.setOnAction(e -> showInfoDialog(false));
-        turnButton.setOnAction(e -> showInfoDialog(true));
+        turnButton.setOnAction(e -> {
+            TurnDialog dialog = new TurnDialog(partida, () -> refreshMatrices());
+            dialog.showAndWait();
+        });
         exitButton.setOnAction(e -> System.exit(0));
 
         HBox buttons = new HBox(10, infoButton, turnButton, exitButton);
