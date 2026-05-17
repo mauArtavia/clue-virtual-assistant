@@ -175,12 +175,10 @@ public class GameView extends BorderPane {
     }
 
     private void showInfoDialog(boolean isUserTurn) {
-        // Por ahora placeholder
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Proximamente");
-        alert.setHeaderText(isUserTurn ? "Es mi turno" : "Tengo informacion");
-        alert.setContentText("Esta funcionalidad se implementara en el siguiente paso.");
-        alert.showAndWait();
+        InfoDialog dialog = new InfoDialog(partida, isUserTurn, () -> {
+            refreshMatrices();
+        });
+        dialog.showAndWait();
     }
 
     private Button styledButton(String text, String color) {
